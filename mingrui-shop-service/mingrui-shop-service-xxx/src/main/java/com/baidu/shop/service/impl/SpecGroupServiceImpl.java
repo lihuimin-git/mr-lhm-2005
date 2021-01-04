@@ -66,7 +66,7 @@ public class SpecGroupServiceImpl extends BaseApiService implements SpecGroupSer
         example.createCriteria().andEqualTo("groupId",id);
         List<SpecParamEntity> specParamEntities = specParamMapper.selectByExample(example);
         if (specParamEntities.size() >0){
-            return this.setResultSuccess("当前规格组有数据不能被删除");
+            return this.setResultError("当前规格组有数据不能被删除");
         }
 
         specGroupMapper.deleteByPrimaryKey(id);
