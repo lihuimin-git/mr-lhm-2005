@@ -1,6 +1,5 @@
 package com.baidu.shop.utils;
 
-import org.codehaus.jackson.map.util.BeanUtil;
 import org.springframework.beans.BeanUtils;
 
 public class BaiduBeanUtil<T>{

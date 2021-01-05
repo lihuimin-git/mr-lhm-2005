@@ -40,7 +40,7 @@ public class SpecGroupServiceImpl extends BaseApiService implements SpecGroupSer
         return this.setResultSuccess(specGroupExample);
     }
 
-    //规格组修改
+    //规格组新增
     @Transactional
     @Override
     public Result<JsonObject> saveSpecGroup(SpecGroupDto specGroupDto) {
