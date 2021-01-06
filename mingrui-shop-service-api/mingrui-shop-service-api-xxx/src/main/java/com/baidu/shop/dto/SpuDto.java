@@ -55,4 +55,8 @@ public class SpuDto extends BaseDTO {
     //不需要验证,新增时直接设置默认值,修改时使用java代码赋值
     @ApiModelProperty(value = "最后修改时间")
     private Date lastUpdateTime;
+
+    private String brandName;//品牌名称
+
+    private String categoryName;//分类名称
 }
