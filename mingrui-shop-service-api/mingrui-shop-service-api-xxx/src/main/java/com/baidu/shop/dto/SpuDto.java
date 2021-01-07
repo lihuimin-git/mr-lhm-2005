@@ -5,9 +5,11 @@ import com.baidu.shop.validate.group.MingruiOperation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @ApiModel(value = "spu传输DTO")
 @Data
@@ -59,4 +61,10 @@ public class SpuDto extends BaseDTO {
     private String brandName;//品牌名称
 
     private String categoryName;//分类名称
+
+    @ApiModelProperty(value = "大字段数据")
+    private SpuDetailDto spuDetail;
+
+    @ApiModelProperty(value = "sku属性数据集合")
+    private List<SkuDto> skus;
 }
