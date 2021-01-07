@@ -136,4 +136,18 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
         });
         return this.setResultSuccess();
     }
+
+    //通过spuId查询SpuDetail信息
+    @Override
+    public Result<SpuDetailEntity> getSpuDetailBySpuId(Integer spuId) {
+        SpuDetailEntity spuDetailEntity = spuDetailMapper.selectByPrimaryKey(spuId);
+        return this.setResultSuccess(spuDetailEntity);
+    }
+
+    //通过spuId查询sku信息
+    @Override
+    public Result<List<SkuDto>> getSkuBySpuId(Integer spuId) {
+        List<SkuDto> skuEntity = skuMapper.getSkusAndStockBySpuId(spuId);
+            return this.setResultSuccess(skuEntity);
+    }
 }
