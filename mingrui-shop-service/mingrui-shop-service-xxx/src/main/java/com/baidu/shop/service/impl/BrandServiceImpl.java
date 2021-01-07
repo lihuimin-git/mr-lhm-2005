@@ -103,14 +103,14 @@ public class BrandServiceImpl extends BaseApiService implements BrandService{
         //判断分类集合字符串中是否包含,
         if(categories.contains(",")){
             categoryBrandMapper.insertList(
-                //数组转list
-                Arrays.asList(categories.split(","))
-                        //获取stream流，流：对一次数据进行操作
-                        .stream()
-                        //遍历list中所有数据
-                        .map(categoryById->new CategoryBrandEntity(Integer.valueOf(categoryById),brandId))
-                        //最终转换成list
-                        .collect(Collectors.toList())
+                    //数组转list
+                    Arrays.asList(categories.split(","))
+                            //获取stream流，流：对一次数据进行操作
+                            .stream()
+                            //遍历list中所有数据
+                            .map(categoryById->new CategoryBrandEntity(Integer.valueOf(categoryById),brandId))
+                            //最终转换成list
+                            .collect(Collectors.toList())
             );
         }else{
             CategoryBrandEntity categoryBrandEntity = new CategoryBrandEntity();
@@ -119,5 +119,12 @@ public class BrandServiceImpl extends BaseApiService implements BrandService{
 
             categoryBrandMapper.insertSelective(categoryBrandEntity);
         }
+    }
+
+    //通过分类id获取品牌
+    @Override
+    public Result<List<BrandEntity>> getBrandInfoByCategoryById(Integer cid) {
+        List<BrandEntity> byId = brandMapper.getBrandInfoByCategoryById(cid);
+        return this.setResultSuccess(byId);
     }
 }
