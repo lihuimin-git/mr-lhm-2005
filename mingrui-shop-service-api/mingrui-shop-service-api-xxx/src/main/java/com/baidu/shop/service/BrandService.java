@@ -20,11 +20,11 @@ public interface BrandService {
 
     @PostMapping(value = "brand/save")
     @ApiOperation(value = "新增品牌")
-    Result<JsonObject> save(@RequestBody BrandDto brandDto);
+    Result<JsonObject> save(@Validated({MingruiOperation.Add.class})@RequestBody BrandDto brandDto);
 
     @PutMapping(value = "brand/save")
     @ApiOperation(value = "修改品牌")
-    Result<JsonObject> eidt(@RequestBody BrandDto brandDto);
+    Result<JsonObject> eidt(@Validated({MingruiOperation.Update.class})@RequestBody BrandDto brandDto);
 
     @DeleteMapping(value = "brand/del")
     @ApiOperation(value = "删除品牌")

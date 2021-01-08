@@ -23,7 +23,6 @@ public class SpuDto extends BaseDTO {
     private String title;
 
     @ApiModelProperty(value = "子标题")
-    @NotNull(message = "子标题不能为空",groups = {MingruiOperation.Add.class})
     private String subTitle;
 
     @ApiModelProperty(value = "1级类录id",example = "1")

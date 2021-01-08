@@ -14,8 +14,6 @@ import com.baidu.shop.utils.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.JsonObject;
-import org.aspectj.weaver.ast.Var;
-import org.bouncycastle.LICENSE;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RestController;
@@ -119,21 +117,58 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
 
         //新增sku
         //从spuDto中获取sku
-        List<SkuDto> skus = spuDto.getSkus();
-        skus.stream().forEach(skuDto -> {
-            SkuEntity skuEntity = BaiduBeanUtil.copyProperties(skuDto, SkuEntity.class);
-            skuEntity.setSpuId(spuEntity.getId());
-            skuEntity.setCreateTime(date);
-            skuEntity.setLastUpdateTime(date);
-            skuMapper.insertSelective(skuEntity);
+        this.saveSkuAndStockInfo(spuDto,spuEntity.getId(),date);
+        return this.setResultSuccess();
+    }
+
+    //修改商品
+    @Override
+    @Transactional
+    public Result<JsonObject> editGoods(SpuDto spuDto) {
+        //修改spu
+        Date date = new Date();
+        SpuEntity spuEntity = BaiduBeanUtil.copyProperties(spuDto, SpuEntity.class);
+        spuEntity.setLastUpdateTime(date);
+        spuMapper.updateByPrimaryKeySelective(spuEntity);
+
+        //修改spuDetail
+        spuDetailMapper.updateByPrimaryKeySelective(BaiduBeanUtil.copyProperties(spuDto.getSpuDetail(),SpuDetailEntity.class));
+
+        //修改sku
+        //先通过spuid删除sku
+        //然后新增数据
+        this.delSkuAndStrock(spuEntity.getId());
+
+        //修改stock
+        //删除stock
+        //但是sku在上面已经被删除掉了
+        //所以应该先查询出被删除的skuid
+        //新增stock
+        this.saveSkuAndStockInfo(spuDto,spuEntity.getId(),date);
 
 
-            //新增stcok
-            StockEntity stockEntity = new StockEntity();
-            stockEntity.setSkuId(skuEntity.getId());
-            stockEntity.setStock(skuDto.getStock());
-            stockMapper.insertSelective(stockEntity);
-        });
+        return this.setResultSuccess();
+    }
+
+    //删除商品
+    @Transactional
+    @Override
+    public Result<JsonObject> delGoods(Integer spuId) {
+        //删除spu
+        spuMapper.deleteByPrimaryKey(spuId);
+        //删除spuDetail
+        spuDetailMapper.deleteByPrimaryKey(spuId);
+
+        //先通过spuid删除sku
+        this.delSkuAndStrock(spuId);
+        return this.setResultSuccess();
+    }
+
+    //上下架
+    @Override
+    public Result<JsonObject> sxjGoods(SpuDto spuDto) {
+        SpuEntity spuEntity = BaiduBeanUtil.copyProperties(spuDto, SpuEntity.class);
+        spuMapper.updateByPrimaryKeySelective(spuEntity);
         return this.setResultSuccess();
     }
 
@@ -149,5 +184,31 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
     public Result<List<SkuDto>> getSkuBySpuId(Integer spuId) {
         List<SkuDto> skuEntity = skuMapper.getSkusAndStockBySpuId(spuId);
             return this.setResultSuccess(skuEntity);
+    }
+
+    //修改和新增的整合（sku增加）
+    private void saveSkuAndStockInfo(SpuDto spuDto,Integer spuId,Date date){
+        List<SkuDto> skus = spuDto.getSkus();
+        skus.stream().forEach(skuDto -> {
+            SkuEntity skuEntity = BaiduBeanUtil.copyProperties(skuDto, SkuEntity.class);
+            skuEntity.setSpuId(spuId);
+            skuEntity.setCreateTime(date);
+            skuEntity.setLastUpdateTime(date);
+            skuMapper.insertSelective(skuEntity);
+
+            StockEntity stockEntity = new StockEntity();
+            stockEntity.setSkuId(skuEntity.getId());
+            stockEntity.setStock(skuDto.getStock());
+            stockMapper.insertSelective(stockEntity);
+        });
+    }
+
+    //修改和删除整合
+    private void delSkuAndStrock(Integer spuId){
+        Example example = new Example(SkuEntity.class);
+        example.createCriteria().andEqualTo("spuId",spuId);
+        List<SkuEntity> skuEntities = skuMapper.selectByExample(example);
+        List<Long> skuCollect = skuEntities.stream().map(sku ->sku.getId()).collect(Collectors.toList());
+        skuMapper.deleteByIdList(skuCollect);
     }
 }
