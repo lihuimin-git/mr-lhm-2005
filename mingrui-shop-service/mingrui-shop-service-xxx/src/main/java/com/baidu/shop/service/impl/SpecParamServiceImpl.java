@@ -1,16 +1,14 @@
 package com.baidu.shop.service.impl;
 
+import com.baidu.shop.entity.SpecParamEntity;
 import com.baidu.shop.base.BaseApiService;
 import com.baidu.shop.base.Result;
 import com.baidu.shop.dto.SpecParamDto;
-import com.baidu.shop.entity.SpecGroupEntity;
-import com.baidu.shop.entity.SpecParamEntity;
 import com.baidu.shop.mapper.SpecParamMapper;
 import com.baidu.shop.service.SpecParamService;
 import com.baidu.shop.utils.BaiduBeanUtil;
 import com.baidu.shop.utils.ObjectUtil;
 import com.google.gson.JsonObject;
-import org.aspectj.weaver.ast.Var;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 import tk.mybatis.mapper.entity.Example;

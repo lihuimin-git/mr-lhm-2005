@@ -1,11 +1,11 @@
 package com.baidu.shop.service.impl;
 
-import com.baidu.shop.base.BaseApiService;
-import com.baidu.shop.base.Result;
-import com.baidu.shop.dto.BrandDto;
 import com.baidu.shop.entity.BrandEntity;
 import com.baidu.shop.entity.CategoryBrandEntity;
 import com.baidu.shop.mapper.BrandMapper;
+import com.baidu.shop.base.BaseApiService;
+import com.baidu.shop.base.Result;
+import com.baidu.shop.dto.BrandDto;
 import com.baidu.shop.mapper.CategoryBrandMapper;
 import com.baidu.shop.service.BrandService;
 import com.baidu.shop.utils.BaiduBeanUtil;

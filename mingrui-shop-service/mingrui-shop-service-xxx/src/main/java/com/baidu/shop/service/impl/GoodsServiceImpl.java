@@ -8,9 +8,9 @@ import com.baidu.shop.dto.SpuDto;
 import com.baidu.shop.entity.*;
 import com.baidu.shop.mapper.*;
 import com.baidu.shop.service.GoodsService;
+import com.baidu.shop.utils.ObjectUtil;
 import com.baidu.shop.status.HTTPStatus;
 import com.baidu.shop.utils.BaiduBeanUtil;
-import com.baidu.shop.utils.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.JsonObject;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +48,7 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
 
     //查询商品
     @Override
-    public Result<PageInfo<SpuEntity>> getSpuInfo(SpuDto spuDto) {
+    public Result<List<SpuEntity>> getSpuInfo(SpuDto spuDto) {
         //倒序
         if (!StringUtils.isEmpty(spuDto.getSort()) && !StringUtils.isEmpty(spuDto.getOrder()))
             PageHelper.orderBy(spuDto.getOrder());

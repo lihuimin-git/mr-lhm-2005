@@ -1,8 +1,8 @@
 package com.baidu.shop.service;
 
+import com.baidu.shop.entity.SpecParamEntity;
 import com.baidu.shop.base.Result;
 import com.baidu.shop.dto.SpecParamDto;
-import com.baidu.shop.entity.SpecParamEntity;
 import com.baidu.shop.validate.group.MingruiOperation;
 import com.google.gson.JsonObject;
 import io.swagger.annotations.Api;

@@ -1,8 +1,8 @@
 package com.baidu.shop.service;
 
+import com.baidu.shop.entity.SpecGroupEntity;
 import com.baidu.shop.base.Result;
 import com.baidu.shop.dto.SpecGroupDto;
-import com.baidu.shop.entity.SpecGroupEntity;
 import com.baidu.shop.validate.group.MingruiOperation;
 import com.google.gson.JsonObject;
 import io.swagger.annotations.Api;
@@ -10,9 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sound.midi.MidiChannel;
 import java.util.List;
-import java.util.Map;
 
 @Api(value ="规格组接口")
 public interface SpecGroupService {
