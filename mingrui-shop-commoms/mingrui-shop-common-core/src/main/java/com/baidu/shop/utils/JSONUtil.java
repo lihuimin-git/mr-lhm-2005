@@ -80,6 +80,20 @@ public class JSONUtil {
         }
         return null;
     }
+
+    public static Map<String, String> toMapValueString(String json) {
+        Map<String, String> map = gson.fromJson(json, new TypeToken<Map<String,
+                String>>() {
+        }.getType());
+        return map;
+    }
+    public static Map<String, List<String>> toMapValueStrList(String json) {
+        Map<String, List<String>> map = gson.fromJson(json, new
+                TypeToken<Map<String, List<String>>>() {}.getType());
+        return map;
+    }
+
+
     /**
      * 从json字符串中获取需要的值
      *

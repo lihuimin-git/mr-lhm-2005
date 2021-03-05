@@ -21,7 +21,7 @@ import java.util.List;
 public interface GoodsService {
     @ApiOperation(value = "查询商品信息")
     @GetMapping(value = "goods/getSpuInfo")
-    Result<List<SpuEntity>> getSpuInfo(@SpringQueryMap  SpuDto spuDto);
+    Result<List<SpuDto>> getSpuInfo(@SpringQueryMap  SpuDto spuDto);
 
     @ApiOperation(value = "新增商品")
     @PostMapping(value = "goods/save")
@@ -41,11 +41,11 @@ public interface GoodsService {
 
     @ApiOperation(value = "通过spuId查询SpuDetail信息")
     @GetMapping(value = "goods/getSpuDetailBySpuId")
-    Result<SpuDetailEntity> getSpuDetailBySpuId(Integer spuId);
+    Result<SpuDetailEntity> getSpuDetailBySpuId(@RequestParam Integer spuId);
 
     @ApiOperation(value = "通过spuId查询Sku信息")
     @GetMapping(value = "goods/getSkuBySpuId")
-    Result<List<SkuDto>> getSkuBySpuId(Integer spuId);
+    Result<List<SkuDto>> getSkuBySpuId(@RequestParam Integer spuId);
 
 
 }

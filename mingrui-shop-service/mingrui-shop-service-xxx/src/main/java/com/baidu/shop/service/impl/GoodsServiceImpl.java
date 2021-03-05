@@ -48,7 +48,7 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
 
     //查询商品
     @Override
-    public Result<List<SpuEntity>> getSpuInfo(SpuDto spuDto) {
+    public Result<List<SpuDto>> getSpuInfo(SpuDto spuDto) {
         //倒序
         if (!StringUtils.isEmpty(spuDto.getSort()) && !StringUtils.isEmpty(spuDto.getOrder()))
             PageHelper.orderBy(spuDto.getOrder());
