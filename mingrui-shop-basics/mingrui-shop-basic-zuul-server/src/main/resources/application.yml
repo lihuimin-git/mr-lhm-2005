@@ -4,7 +4,8 @@ server:
 spring:
   application:
     name: eureka-zuul
-
+  jackson:
+    default-property-inclusion: non_null #空值不返回
 zuul:
   # 声明路由
   routes:

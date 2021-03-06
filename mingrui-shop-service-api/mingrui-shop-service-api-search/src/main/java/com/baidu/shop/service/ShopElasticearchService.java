@@ -25,5 +25,5 @@ public interface ShopElasticearchService {
 
     @ApiOperation(value = "查询")
     @GetMapping(value = "es/search")
-    Result<List<GoodsDoc>> search(@RequestParam String search);
+    Result<List<GoodsDoc>> search(@RequestParam String search,@RequestParam Integer page);
 }
