@@ -7,6 +7,7 @@ import com.baidu.shop.validate.group.MingruiOperation;
 import com.google.gson.JsonObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public interface SpecGroupService {
 
     @ApiModelProperty(value = "规格组查询")
     @GetMapping(value = "specGroup/getSpecGroupInfo")
-    Result<List<SpecGroupEntity>> getSpecGroupInfo(SpecGroupDto specGroupDto);
+    Result<List<SpecGroupEntity>> getSpecGroupInfo(@SpringQueryMap SpecGroupDto specGroupDto);
 
     @ApiModelProperty(value = "新增规格组")
     @PostMapping(value = "specGroup/save")

@@ -1,4 +1,4 @@
-package com.baidu.shop.service.impl;
+package com.baidu.shop.service;
 
 import com.baidu.shop.entity.CategoryBrandEntity;
 import com.baidu.shop.entity.CategoryEntity;

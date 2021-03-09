@@ -1,4 +1,4 @@
-package com.baidu.shop.service.impl;
+package com.baidu.shop.service;
 
 import com.baidu.shop.base.BaseApiService;
 import com.baidu.shop.base.Result;
@@ -65,6 +65,8 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
         //条件查询
         if(!StringUtils.isEmpty(spuDto.getTitle()))
             criteria.andLike("title","%"+spuDto.getTitle()+"%");
+
+        if (ObjectUtil.isNotNull(spuDto.getId()))criteria.andEqualTo("id",spuDto.getId());
 
         List<SpuEntity> spuEntities = spuMapper.selectByExample(example);
 

@@ -17,7 +17,7 @@ import java.util.List;
 public interface SpecParamService {
     @ApiOperation(value = "查询规格参数")
     @GetMapping(value = "specParam/getSpecParamInfo")
-    Result<List<SpecParamEntity>> getSpecParamInfo(@SpringQueryMap  SpecParamDto specParamDto);
+    Result<List<SpecParamEntity>> getSpecParamInfo(@SpringQueryMap SpecParamDto specParamDto);
 
     @ApiOperation(value = "新增规格参数")
     @PostMapping(value = "specParam/save")

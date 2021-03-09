@@ -4,9 +4,11 @@ import com.baidu.shop.entity.BrandEntity;
 import com.baidu.shop.base.Result;
 import com.baidu.shop.dto.BrandDto;
 import com.baidu.shop.validate.group.MingruiOperation;
+import com.github.pagehelper.PageInfo;
 import com.google.gson.JsonObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +18,7 @@ import java.util.List;
 public interface BrandService {
     @GetMapping(value = "brand/list")
     @ApiOperation(value = "查询品牌列表")
-    Result<List<BrandEntity>> getBrandInfo(BrandDto brandDto);
+    Result<PageInfo<BrandEntity>> getBrandInfo(@SpringQueryMap BrandDto brandDto);
 
     @PostMapping(value = "brand/save")
     @ApiOperation(value = "新增品牌")

@@ -1,4 +1,4 @@
-package com.baidu.shop.service.impl;
+package com.baidu.shop.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baidu.shop.base.BaseApiService;

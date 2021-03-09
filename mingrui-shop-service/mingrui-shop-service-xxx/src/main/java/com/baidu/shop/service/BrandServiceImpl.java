@@ -1,5 +1,6 @@
-package com.baidu.shop.service.impl;
+package com.baidu.shop.service;
 
+import com.baidu.shop.dto.SpuDto;
 import com.baidu.shop.entity.BrandEntity;
 import com.baidu.shop.entity.CategoryBrandEntity;
 import com.baidu.shop.mapper.BrandMapper;
@@ -9,6 +10,7 @@ import com.baidu.shop.dto.BrandDto;
 import com.baidu.shop.mapper.CategoryBrandMapper;
 import com.baidu.shop.service.BrandService;
 import com.baidu.shop.utils.BaiduBeanUtil;
+import com.baidu.shop.utils.ObjectUtil;
 import com.baidu.shop.utils.PinyinUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -42,15 +44,24 @@ public class BrandServiceImpl extends BaseApiService implements BrandService{
 
     //查询品牌
     @Override
-    public Result<List<BrandEntity>> getBrandInfo(BrandDto brandDto) {
+    public Result<PageInfo<BrandEntity>> getBrandInfo(BrandDto brandDto) {
         //mybatis如何自定义分页插件 --》 mybatis执行器
-        PageHelper.startPage(brandDto.getPage(),brandDto.getRows());
+//        PageHelper.startPage(brandDto.getPage(),brandDto.getRows());
+        if (ObjectUtil.isNotNull(brandDto.getPage()) && ObjectUtil.isNotNull(brandDto.getRows()))
+            PageHelper.startPage(brandDto.getPage(),brandDto.getRows());
+
         if (!StringUtils.isEmpty(brandDto.getSort()))PageHelper.orderBy(brandDto.getOrder());
 
         BrandEntity brandEntity = BaiduBeanUtil.copyProperties(brandDto, BrandEntity.class);
 
         Example example = new Example(BrandEntity.class);
-        example.createCriteria().andLike("name","%" + brandEntity.getName() + "%");
+
+        Example.Criteria criteria = example.createCriteria();
+//        example.createCriteria().andLike("name","%" + brandEntity.getName() + "%");
+        if(ObjectUtil.isNotNull(brandEntity.getName())){
+            criteria.andLike("name","%" + brandEntity.getName() + "%");
+        }
+        if (ObjectUtil.isNotNull(brandDto.getId()))criteria.andEqualTo("id",brandDto.getId());
 
         List<BrandEntity> brandEntities = brandMapper.selectByExample(example);
         PageInfo<BrandEntity> pageInfo = new PageInfo<>(brandEntities);

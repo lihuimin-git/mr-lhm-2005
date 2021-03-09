@@ -1,4 +1,4 @@
-package com.baidu.shop.service.impl;
+package com.baidu.shop.service;
 
 import com.baidu.shop.entity.SpecParamEntity;
 import com.baidu.shop.base.BaseApiService;
@@ -35,7 +35,9 @@ public class SpecParamServiceImpl extends BaseApiService implements SpecParamSer
         //（查询cid）不用再重写
         if (ObjectUtil.isNotNull(specParamEntity.getGroupId()))criteria.andEqualTo("groupId",specParamEntity.getGroupId());
         if (ObjectUtil.isNotNull(specParamEntity.getCid()))criteria.andEqualTo("cid",specParamEntity.getCid());
-
+        if(ObjectUtil.isNotNull(specParamDto.getGeneric())){
+            criteria.andEqualTo("generic",specParamEntity.getGeneric());
+        }
         List<SpecParamEntity> specParamEntities = specParamMapper.selectByExample(example);
         return this.setResultSuccess(specParamEntities);
     }
